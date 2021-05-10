@@ -3,6 +3,7 @@
 # Requires discord.py
 
 import discord
+import botkb
 import config
 
 # Grab the Discord Client
@@ -13,7 +14,7 @@ token = config.token
 
 # Bot Information
 name = "Big Vinny"
-version = "0.1"
+version = "0.2"
 
 # Log the bot into Discord
 @client.event
@@ -28,8 +29,13 @@ async def on_message(message):
     if message.author == client.user:
         return
         
-    if message.content.startswith("ding"):
-        await message.channel.send("dong")
+    # Variables to determine if bot should respond
+    mentioned = client.user.mentioned_in(message)
+    content = message.content.lower()
+    
+    # Checks if the bot should respond
+    if mentioned or any(word in content for word in botkb.aliases):
+        await message.channel.send("I should respond")
 # end on_message()
 
 # Run the program based on the bot's token
