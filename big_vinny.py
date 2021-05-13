@@ -14,7 +14,7 @@ token = config.token
 
 # Bot Information
 name = "Big Vinny"
-version = "0.3"
+version = "0.4"
 
 # Log the bot into Discord
 @client.event
@@ -43,7 +43,10 @@ async def on_message(message):
     
     # Checks if the bot should respond
     if mentioned or any(word in content for word in botkb.aliases):
-        await message.channel.send("I should respond")
+        if ("get lit" in content):
+            await message.channel.send(botkb.permit_lit())
+        else:
+            await message.channel.send(botkb.get_response(botkb.unknown_prompt)) 
         
 # end on_message()
 
