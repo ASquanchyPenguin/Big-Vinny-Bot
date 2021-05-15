@@ -14,7 +14,7 @@ token = config.token
 
 # Bot Information
 name = "Big Vinny"
-version = "0.4"
+version = "0.4.1"
 
 # Log the bot into Discord
 @client.event
@@ -26,27 +26,19 @@ async def on_ready():
 # Called when the bot receives a message
 @client.event
 async def on_message(message):
-    # Prevents the bot from responding to itself
-    if message.author == client.user:
+    # Check if we should respond
+    if (message.author == client.user) or (not any(word in message.content for word in botkb.aliases)):
         return
         
-    # Variables to determine if and how the bot should respond
-    mentioned = client.user.mentioned_in(message)
-    content = message.content.lower()
-    array = content.split()
+    # Variables to determine how the bot should respond
+    prompt = botkb.parse_content(message.content)
+    length = len(prompt)
     
-    # Check for built-in commands
-    if mentioned and any(word in content for word in botkb.commands):
-        if len(array) > 0:
-            await run_command(array[1], message.channel)
-            return
+    print(length, prompt)
     
-    # Checks if the bot should respond
-    if mentioned or any(word in content for word in botkb.aliases):
-        if ("get lit" in content):
-            await message.channel.send(botkb.permit_lit())
-        else:
-            await message.channel.send(botkb.get_response(botkb.unknown_prompt)) 
+    # Was the bot's name mentioned with no context?
+    if (length == 0):
+        await message.channel.send(botkb.get_response(botkb.mentioned_responses))
         
 # end on_message()
 

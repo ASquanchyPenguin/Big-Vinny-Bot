@@ -8,14 +8,14 @@ from datetime import datetime
 from random import choice 
 
 # Common lists used by the bot
-aliases = ["vinny", "yelly", "chig winny", "big beep beep"]
+aliases = ["<@!841002321751441428>", "big vinny", "vinny", "yelly", "chig winny", "big beep beep"]
 commands = ["!version", "!time"]
 weekdays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 keys = ["get lit"]
 
 # Common bot responses
-
-unknown_prompt = ["what", "I don't know what you mean.", "Was that even English?", "Right...", "bruh", "Why don't you rethink that one"]
+mentioned_responses = ["Don't at me", "Hmm?", "What you want B?", "Did you have something to say?"]
+unknown_responses = ["what", "I don't know what you mean.", "Was that even English?", "Right...", "bruh", "Why don't you rethink that one"]
 
 # Common tasks for the bot
 
@@ -41,6 +41,17 @@ def get_time(format):
     return time
 # end get_time()
 
+def parse_content(content):
+    # Remove name
+    for alias in aliases:
+        content = content.replace(alias, '')
+    
+    # Force lower case and strip the content
+    content = content.lower().strip()
+    
+    return content.split()
+# end parse_content()
+
 def permit_lit():
     day = date.today().weekday()
     hour = int(get_time("%H"))
@@ -54,5 +65,4 @@ def permit_lit():
     # Otherwise no lit
     else:
         return "It is not time to get lit."
-    
 # end permit_lit()
