@@ -20,7 +20,31 @@ responses = {
     "none" : ["Huh?", "Hmm. Not quite sure what you mean", "Was that even English?", "Bruh idk", "Haha bot go brr. I don't know what this means.", "Sir are you even speaking English?"]
 }
 
+# Quick Reference for Keys based on indices
+response_keys = ["affirm_strong", "affirm_weak", "decline", "max-length", "mentioned", "none"]
+
 # Determines the correct response based on the prompt
 def determine_response(prompt):
-    return "PASS"
+    return get_response([1, 0, 1, 0, 0, 0])
 # end determine_response
+
+# Returns a random response from the requested entries in the matrix
+def get_response(response_vector):
+    response_pool = list()
+
+    # Verify the vector is the correct length
+    if len(response_vector) != len(response_keys):
+        print("Invalid vector length. Vector={}".format(response_vector))
+        return choice(responses["none"])
+
+    # Create possible response pool
+    for num in range(len(response_keys)):
+        if response_vector[num] == 1:
+            response_values = responses[response_keys[num]]
+
+            for value in response_values:
+                response_pool.append(value)
+
+    # Return random option based on response pool
+    return choice(response_pool)
+# end get_response
