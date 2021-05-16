@@ -13,8 +13,8 @@ client = discord.Client()
 token = config.token
 
 # Bot Information
-name = "Big Vinny"
-version = "0.4.1"
+name = config.name
+version = "0.4.2"
 
 # Log the bot into Discord
 @client.event
@@ -29,27 +29,11 @@ async def on_message(message):
     # Check if we should respond
     if (message.author == client.user) or (not any(word in message.content for word in botkb.aliases)):
         return
-        
-    # Variables to determine how the bot should respond
-    prompt = botkb.parse_content(message.content)
-    length = len(prompt)
-    
-    print(length, prompt)
-    
-    # Was the bot's name mentioned with no context?
-    if (length == 0):
-        await message.channel.send(botkb.get_response(botkb.mentioned_responses))
-        
-# end on_message()
 
-async def run_command(cmd, channel):
-    if cmd == "!time":
-        day = botkb.get_day()
-        date = botkb.get_date("%B %d, %Y")
-        time = botkb.get_time("%H:%M") 
-        await channel.send("It is {}, {} at {}.".format(day, date, time))
-    elif cmd == "!version":
-        await channel.send("Thanks for asking! I'm running version {}.".format(version))
+    # Respond to the message
+    response = botkb.determine_response(message.content)
+    await message.channel.send(response)
+# end on_message()
 
 # Run the program based on the bot's token
 client.run(token)
