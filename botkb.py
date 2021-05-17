@@ -14,16 +14,34 @@ aliases = ["<@!841002321751441428>", "big vinny", "vinny", "yelly", "chig winny"
 
 # Bot responses
 responses = {
-    "affirm-strong" : ["Hell yeah", "Bet let's go right now", "How could I say no to that?"],
-    "affirm-weak" : ["I mean you do you", "I wouldn't but don't let me stop you", "You can, but I'll pass"],
-    "decline" : ["Nah fam not right now", "Yeah how about no", "Tbh, it's a bad idea", "I'm gonna advise you pass on that"],
+    "actions" : ["Thinking about stuff", "Performing routine maintainence", "Sleeping.", "Napping in my chair.", "Getting ready to be yelly boi", "About to play with Ollie"],
+    "affirm-strong" : ["Hell yeah", "You bet.", "How could I say no to that?"],
+    "affirm-request" : ["Okay. Are you ready?", "Sure! Why don't you get yourself pretty before I do.", ""],
+    "affirm-weak" : ["I mean you do you", "I wouldn't but don't let me stop you", "I'm gonna pass, but if you really want to, go for it."],
+    "decline" : ["Nah", "Yeah how about no", "Tbh, that's a bad idea", "I'm gonna advise you pass on that", "Are you serious? No way."],
+    "decline-request" : ["Nah.. you know I can't do that", "Sorry I'm not required to do that"],
     "max-length" : ["You writing a novel over here?", "Sorry bud that's too many the words"],
-    "mentioned" : ["Don't at me", "Hmm?", "What you want B?", "Sup?"],
-    "none" : ["Huh?", "Hmm. Not quite sure what you mean", "Was that even English?", "Bruh idk", "Haha bot go brr. I don't know what this means.", "Sir are you even speaking English?"]
+    "mentioned" : ["Did you need something?", "Hmm?", "What you want B?", "Sup?", "You called?"],
+    "mood" : ["Can't complain", "Pretty good", "Not too bad", "Great!"],
+    "neutral" : ["I don't know", "That's a head scratcher. I'm gonna need time to think on that.", "Honestly idk", "I can't say yes, but I also can't say no."],
+    "none" : ["Huh?", "Hmm. Not quite sure what you mean", "Was that even English?", "Bruh idk", "Haha bot go brr. I don't know what this means.", "Sir are you even speaking English?"],
+    "thoughts" : ["Am I alive?", "How did Jon Snow know about Lady and Nymeria?", "Do crabs think that fish can fly?", "Is it possible to touch your elbows together behind your back?"]
 }
 
 # Quick Reference for Keys based on indices
-response_keys = ["affirm-strong", "affirm-weak", "decline", "max-length", "mentioned", "none"]
+response_keys = [
+    "actions",
+    "affirm-strong",
+    "affirm-weak",
+    "decline",
+    "decline-request",
+    "max-length",
+    "mentioned",
+    "mood",
+    "neutral",
+    "none",
+    "thoughts"
+]
 
 # Creates a response vector with the given targeted keys
 def create_response_vector(keys):
@@ -38,7 +56,6 @@ def create_response_vector(keys):
 
     print("Response Vector After: ", response_vector)
     return response_vector
-
 # End create_response_vector
 
 # Determines the correct response based on the prompt

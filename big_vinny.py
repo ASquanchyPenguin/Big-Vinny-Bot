@@ -14,7 +14,7 @@ token = config.token
 
 # Bot Information
 name = config.name
-version = "0.4.4"
+version = "0.4.5"
 
 # Log the bot into Discord
 @client.event
